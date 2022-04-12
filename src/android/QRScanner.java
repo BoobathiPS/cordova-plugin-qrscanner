@@ -569,7 +569,7 @@ public class QRScanner extends CordovaPlugin implements BarcodeCallback {
         status.put("hasPermission",boolToNumberString(hasPermission));
         status.put("previewing",previewing);
         status.put("lightOn",lightOn);
-        JSONObject obj = new JSONObject(status)
+        JSONObject obj = new JSONObject(status);
         PluginResult result = new PluginResult(PluginResult.Status.OK, obj);
         callbackContext.sendPluginResult(result);     
         if (!prepared) {
