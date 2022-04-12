@@ -88,7 +88,7 @@ public class QRScanner extends CordovaPlugin implements BarcodeCallback {
             else if(action.equals("qrScan")) {
                 cordova.getThreadPool().execute(new Runnable() {
                     public void run() {
-                       getStatus(callbackContext);
+                       scan(callbackContext);
                     }
                 });
                 return true;
@@ -563,6 +563,15 @@ public class QRScanner extends CordovaPlugin implements BarcodeCallback {
 
     private void scan(final CallbackContext callbackContext) {
         scanning = true;
+        HashMap status = new HashMap();
+        status.put("prepared",boolToNumberString(prepared));
+        status.put("hasCamera",boolToNumberString(hasCamera()));
+        status.put("hasPermission",boolToNumberString(hasPermission));
+        status.put("previewing",previewing);
+        status.put("lightOn",lightOn);
+        JSONObject obj = new JSONObject(status)
+        PluginResult result = new PluginResult(PluginResult.Status.OK, obj);
+        callbackContext.sendPluginResult(result);     
         if (!prepared) {
             shouldScanAgain = true;
             if (hasCamera()) {
