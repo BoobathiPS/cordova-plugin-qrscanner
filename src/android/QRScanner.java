@@ -588,7 +588,7 @@ public class QRScanner extends CordovaPlugin implements BarcodeCallback {
             }
         HashMap status = new HashMap();
         status.put("prepared",boolToNumberString(prepared));
-        JSONObject obj = new JSONObject(status)
+        JSONObject obj = new JSONObject(status);
         PluginResult result = new PluginResult(PluginResult.Status.OK, obj);
         callbackContext.sendPluginResult(result);                
             shouldScanAgain = false;
