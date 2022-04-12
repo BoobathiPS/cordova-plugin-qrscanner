@@ -10,7 +10,7 @@ import android.net.Uri;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.ResultPoint;
-import com.journeyapps.barcodescanner.BarcodeCallback;
+import com.journeyapps.barcodescanner.c;
 import com.journeyapps.barcodescanner.BarcodeResult;
 import com.journeyapps.barcodescanner.BarcodeView;
 import com.journeyapps.barcodescanner.DefaultDecoderFactory;
@@ -109,7 +109,7 @@ public class QRScanner extends CordovaPlugin implements BarcodeCallback {
                 });
                 return true;
             }
-            else if(action.equals("pausePreview")) {
+            else if(action.equals("pausePreview")) {fsdfsd
                 cordova.getThreadPool().execute(new Runnable() {
                     public void run() {
                         pausePreview(callbackContext);
@@ -589,15 +589,16 @@ public class QRScanner extends CordovaPlugin implements BarcodeCallback {
                     }
                 });
             }
+        
+            shouldScanAgain = false;
+            this.nextScanCallback = callbackContext;
+            final BarcodeCallback b = this;
+            callbackContext.sendPluginResult(result);        
             status.put("prepared",boolToNumberString(prepared));
             status.put("previewing",boolToNumberString(previewing));
             status.put("lightEnabled",boolToNumberString(lightOn));
             JSONObject obj = new JSONObject(status);
-            PluginResult result = new PluginResult(PluginResult.Status.OK, obj);              
-            callbackContext.sendPluginResult(result);        
-            shouldScanAgain = false;
-            this.nextScanCallback = callbackContext;
-            final BarcodeCallback b = this;
+            PluginResult result = new PluginResult(PluginResult.Status.OK, obj);      
             this.cordova.getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
