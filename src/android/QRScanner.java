@@ -11,10 +11,10 @@ import android.net.Uri;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.ResultPoint;
 import com.journeyapps.barcodescanner.c;
-import com.journeyapps.barcodescanner.BarcodeResult;
-import com.journeyapps.barcodescanner.BarcodeView;
-import com.journeyapps.barcodescanner.DefaultDecoderFactory;
-import com.journeyapps.barcodescanner.camera.CameraSettings;
+import com.journeyapps.barcodescanner.BarcodeResult2;
+import com.journeyapps.barcodescanner.BarcodeView3;
+import com.journeyapps.barcodescanner.DefaultDecoderFactory3;
+import com.journeyapps.barcodescanner.camera.CameraSettings3;
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.PluginResult;
@@ -109,7 +109,7 @@ public class QRScanner extends CordovaPlugin implements BarcodeCallback {
                 });
                 return true;
             }
-            else if(action.equals("pausePreview")) {fsdfsd
+            else if(action.equals("pausePreview")) {
                 cordova.getThreadPool().execute(new Runnable() {
                     public void run() {
                         pausePreview(callbackContext);
