@@ -10,11 +10,11 @@ import android.net.Uri;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.ResultPoint;
-import com.journeyapps.barcodescanner.c;
-import com.journeyapps.barcodescanner.BarcodeResult2;
-import com.journeyapps.barcodescanner.BarcodeView3;
-import com.journeyapps.barcodescanner.DefaultDecoderFactory3;
-import com.journeyapps.barcodescanner.camera.CameraSettings3;
+import com.journeyapps.barcodescanner.BarcodeCallback;
+import com.journeyapps.barcodescanner.BarcodeResult;
+import com.journeyapps.barcodescanner.BarcodeView;
+import com.journeyapps.barcodescanner.DefaultDecoderFactory;
+import com.journeyapps.barcodescanner.camera.CameraSettings;
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.PluginResult;
@@ -563,8 +563,6 @@ public class QRScanner extends CordovaPlugin implements BarcodeCallback {
 
     private void scan(final CallbackContext callbackContext) {
         scanning = true;
-        HashMap status = new HashMap();
-   
         if (!prepared) {
             shouldScanAgain = true;
             if (hasCamera()) {
@@ -575,7 +573,6 @@ public class QRScanner extends CordovaPlugin implements BarcodeCallback {
                 }
             }
         } else {
-
             if(!previewing) {
                 this.cordova.getActivity().runOnUiThread(new Runnable() {
                     @Override
@@ -589,16 +586,9 @@ public class QRScanner extends CordovaPlugin implements BarcodeCallback {
                     }
                 });
             }
-        
             shouldScanAgain = false;
             this.nextScanCallback = callbackContext;
             final BarcodeCallback b = this;
-            callbackContext.sendPluginResult(result);        
-            status.put("prepared",boolToNumberString(prepared));
-            status.put("previewing",boolToNumberString(previewing));
-            status.put("lightEnabled",boolToNumberString(lightOn));
-            JSONObject obj = new JSONObject(status);
-            PluginResult result = new PluginResult(PluginResult.Status.OK, obj);      
             this.cordova.getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
